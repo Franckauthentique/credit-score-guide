@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Score Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #07111f;
+  --navy2: #0d1e33;
+  --navy3: #142640;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8edf5;
+  --muted: #6b7fa0;
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.12);
+  --green: #10b981;
+  --green-dim: rgba(16,185,129,0.1);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.1);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.1);
+  --purple: #8b5cf6;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0 0 4rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(160deg, #0d2347 0%, #07111f 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.header-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.header h1 {
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 46ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── SCORE GAUGE ── */
+.gauge-section {
+  padding: 2rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gauge-wrap {
+  position: relative;
+  width: 220px;
+  height: 120px;
+  margin-bottom: 0.5rem;
+}
+
+#gaugeSvg { width: 220px; height: 120px; }
+
+.gauge-score {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.gauge-score .num {
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  transition: color 0.5s;
+}
+
+.gauge-score .label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+  transition: color 0.5s;
+}
+
+.score-range-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto 0;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.range-seg {
+  flex: 1;
+  height: 100%;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  margin: 0.4rem auto 0;
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+/* ── TABS ── */
+.tabs-wrap {
+  padding: 1.5rem 1rem 0;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.55rem 0.5rem;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: var(--blue);
+  color: #fff;
+}
+
+.tab-btn:not(.active):hover {
+  color: var(--text);
+  background: var(--navy3);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 1.5rem 1rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── PIE CHART ── */
+.pie-section {
+  padding: 1.75rem 1rem 0.5rem;
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin: 1.5rem auto 0;
+  max-width: 680px;
+}
+
+.pie-label-top {
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.pie-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.5rem;
+}
+
+.pie-wrap {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 24px rgba(59,130,246,0.12));
+}
+
+#pieSvg { width: 100%; height: 100%; overflow: visible; }
+
+.pie-slice {
+  cursor: pointer;
+  transition: opacity 0.2s, filter 0.2s;
+  transform-origin: 100px 100px;
+}
+
+.pie-slice:hover {
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(255,255,255,0.2));
+}
+
+.pie-slice.active {
+  filter: brightness(1.25) drop-shadow(0 0 8px rgba(255,255,255,0.25));
+}
+
+.pie-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 180px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.legend-item:hover, .legend-item.active {
+  background: rgba(255,255,255,0.04);
+  border-color: var(--border2);
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-text { flex: 1; }
+
+.legend-name {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.legend-sub {
+  font-size: 0.6rem;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.legend-pct {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+/* ── REPAIR TIMELINE TAB ── */
+.damage-card {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.damage-head {
+  padding: 1.1rem 1.25rem 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.damage-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+
+.damage-meta { flex: 1; }
+
+.damage-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.damage-subtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.stays-red { color: var(--red); }
+.stays-amber { color: var(--amber); }
+.stays-green { color: var(--green); }
+
+.damage-badge {
+  flex-shrink: 0;
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  text-align: center;
+  border: 1px solid;
+}
+
+.badge-red { background: var(--red-dim); border-color: rgba(239,68,68,0.25); }
+.badge-amber { background: var(--amber-dim); border-color: rgba(245,158,11,0.25); }
+.badge-green { background: var(--green-dim); border-color: rgba(16,185,129,0.25); }
+
+.damage-badge .badge-num {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.badge-red .badge-num { color: var(--red); }
+.badge-amber .badge-num { color: var(--amber); }
+.badge-green .badge-num { color: var(--green); }
+
+.damage-badge .badge-label {
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.badge-red .badge-label { color: var(--red); }
+.badge-amber .badge-label { color: var(--amber); }
+.badge-green .badge-label { color: var(--green); }
+
+/* timeline bar */
+.timeline-bar-wrap {
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.35rem;
+  position: relative;
+}
+
+.timeline-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.fill-red { background: linear-gradient(to right, var(--red), #ef444488); }
+.fill-amber { background: linear-gradient(to right, var(--amber), #f59e0b88); }
+.fill-green { background: linear-gradient(to right, var(--green), #10b98188); }
+
+.timeline-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.58rem;
+  color: var(--muted);
+}
+
+/* phases */
+.damage-phases { padding: 0.75rem 1.25rem 1rem; }
+
+.phase-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+}
+
+.phase-row:last-child { margin-bottom: 0; }
+
+.phase-dot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.phase-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.phase-line {
+  width: 1px;
+  flex: 1;
+  background: var(--border2);
+  margin-top: 4px;
+  min-height: 16px;
+}
+
+.phase-row:last-child .phase-line { display: none; }
+
+.phase-time {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  width: 72px;
+  padding-top: 2px;
+}
+
+.phase-text {
+  font-size: 0.75rem;
+  color: var(--text);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.phase-text strong { color: #fff; }
+
+.damage-tip {
+  margin: 0 1.25rem 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.tip-red { background: var(--red-dim); border: 1px solid rgba(239,68,68,0.15); color: var(--text); }
+.tip-amber { background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.15); color: var(--text); }
+.tip-green { background: var(--green-dim); border: 1px solid rgba(16,185,129,0.15); color: var(--text); }
+
+.tip-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+
+/* ── PILLAR CARDS ── */
+.pillar {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.pillar-head {
+  padding: 1.1rem 1.25rem 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pillar-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pillar-meta { flex: 1; }
+
+.pillar-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.pillar-weight {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+}
+
+.pillar-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 58ch;
+}
+
+.recovery-badge {
+  flex-shrink: 0;
+  background: var(--green-dim);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  text-align: center;
+}
+
+.recovery-badge .pts {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+
+.recovery-badge .pts-label {
+  font-size: 0.55rem;
+  color: var(--green);
+  opacity: 0.8;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pillar-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.pillar-col {
+  padding: 1rem 1.25rem;
+}
+
+.pillar-col:first-child {
+  border-right: 1px solid var(--border);
+}
+
+.col-head {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.col-head.do { color: var(--green); }
+.col-head.dont { color: var(--red); }
+
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.action-item:last-child { margin-bottom: 0; }
+
+.action-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.do .action-dot { background: var(--green); }
+.dont .action-dot { background: var(--red); }
+
+.action-recovery {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--green);
+  white-space: nowrap;
+  padding-left: 4px;
+}
+
+/* ── PRO HACKS ── */
+.hacks-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.hack-card {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.hack-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--navy3);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 36px;
+  text-align: right;
+  -webkit-text-stroke: 1px var(--border2);
+}
+
+.hack-content { flex: 1; }
+
+.hack-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-bottom: 0.4rem;
+  display: inline-block;
+}
+
+.tag-timing { background: rgba(59,130,246,0.15); color: var(--blue); }
+.tag-util { background: rgba(245,158,11,0.15); color: var(--amber); }
+.tag-history { background: rgba(139,92,246,0.15); color: var(--purple); }
+.tag-inquiries { background: rgba(239,68,68,0.15); color: var(--red); }
+.tag-disputes { background: rgba(16,185,129,0.15); color: var(--green); }
+.tag-payments { background: rgba(59,130,246,0.15); color: var(--blue); }
+.tag-protection { background: rgba(139,92,246,0.15); color: var(--purple); }
+.tag-recovery { background: rgba(16,185,129,0.15); color: var(--green); }
+.tag-momentum { background: rgba(245,158,11,0.15); color: var(--amber); }
+
+.hack-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+
+.hack-desc {
+  font-size: 0.73rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 55ch;
+}
+
+.hack-impact {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+/* ── SIMULATOR ── */
+.sim-card {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.sim-score-display {
+  padding: 1.5rem;
+  text-align: center;
+  background: linear-gradient(160deg, var(--navy3) 0%, var(--navy2) 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.sim-score-num {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  transition: color 0.4s;
+}
+
+.sim-score-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 4px;
+  transition: color 0.4s;
+}
+
+.sim-score-desc {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  max-width: 44ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.sim-breakdown {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+
+.sim-factor {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.sim-factor:last-child { border-right: none; }
+
+.sim-factor-icon { font-size: 1rem; margin-bottom: 4px; }
+
+.sim-factor-pts {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+}
+
+.sim-factor-name {
+  font-size: 0.55rem;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+.sim-sliders {
+  padding: 1.25rem;
+}
+
+.slider-row {
+  margin-bottom: 1.1rem;
+}
+
+.slider-row:last-child { margin-bottom: 0; }
+
+.slider-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.slider-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slider-value {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.slider-recovery {
+  font-size: 0.62rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 5px rgba(59,130,246,0.3);
+}
+
+.sim-tip {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--blue-dim);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 8px;
+  font-size: 0.73rem;
+  color: var(--text);
+  line-height: 1.6;
+  transition: opacity 0.3s;
+}
+
+.sim-tip strong { color: var(--blue); }
+
+/* ── RECOVERY TABLE ── */
+.recovery-section {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.recovery-title {
+  padding: 1rem 1.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--green);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.recovery-row {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  gap: 0.75rem;
+}
+
+.recovery-row:last-child { border-bottom: none; }
+
+.recovery-action {
+  flex: 1;
+  font-size: 0.75rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.recovery-time {
+  font-size: 0.65rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.recovery-pts-badge {
+  background: var(--green-dim);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+/* ── FOOTER ── */
+.footer-note {
+  text-align: center;
+  font-size: 0.62rem;
+  color: var(--muted);
+  padding: 2rem 1rem 0;
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+@media (max-width: 500px) {
+  .pillar-body { grid-template-columns: 1fr; }
+  .pillar-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .sim-breakdown { grid-template-columns: repeat(3, 1fr); }
+  .sim-breakdown .sim-factor:nth-child(3) { border-right: none; }
+  .sim-breakdown .sim-factor:nth-child(4) { border-top: 1px solid var(--border); }
+  .sim-breakdown .sim-factor:nth-child(5) { border-top: 1px solid var(--border); border-right: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">The Only Guide You Need</div>
+  <h1>Credit Score<br>Cheat Sheet</h1>
+  <p>Everything that moves your score — what to do, what to avoid, and how many points you recover when you fix it.</p>
+</div>
+
+<!-- GAUGE -->
+<div class="gauge-section">
+  <div class="gauge-wrap">
+    <svg id="gaugeSvg" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round"/>
+      <path id="gaugeTrack" d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="#3b82f6" stroke-width="12" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283"/>
+    </svg>
+    <div class="gauge-score">
+      <div class="num" id="gaugeNum">—</div>
+      <div class="label" id="gaugeLabel">Your Score</div>
+    </div>
+  </div>
+  <div class="score-range-bar">
+    <div class="range-seg" style="background:#ef4444"></div>
+    <div class="range-seg" style="background:#f97316"></div>
+    <div class="range-seg" style="background:#f59e0b"></div>
+    <div class="range-seg" style="background:#22c55e"></div>
+    <div class="range-seg" style="background:#10b981"></div>
+  </div>
+  <div class="range-labels">
+    <span>300 Poor</span>
+    <span>580 Fair</span>
+    <span>670 Good</span>
+    <span>740 Very Good</span>
+    <span>800+ Exceptional</span>
+  </div>
+</div>
+
+<!-- PIE CHART -->
+<div class="pie-section">
+  <div class="pie-label-top">What moves your score</div>
+  <div class="pie-layout">
+    <div class="pie-wrap">
+      <svg id="pieSvg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="54" fill="#0d1e33" stroke="none"/>
+        <text x="100" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="800" fill="#ffffff" id="pieHoverPct">5 Factors</text>
+        <text x="100" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" font-weight="500" fill="#6b7fa0" id="pieHoverName">tap a slice</text>
+      </svg>
+    </div>
+    <div class="pie-legend" id="pieLegend"></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('pillars', this)">5 Pillars</button>
+    <button class="tab-btn" onclick="switchTab('repair', this)">Repair Timeline</button>
+    <button class="tab-btn" onclick="switchTab('hacks', this)">Pro Hacks</button>
+    <button class="tab-btn" onclick="switchTab('sim', this)">Simulator</button>
+  </div>
+</div>
+
+<!-- ═══ PILLARS TAB ═══ -->
+<div class="tab-content active section" id="tab-pillars">
+
+  <!-- PAYMENT HISTORY -->
+  <div class="pillar">
+    <div class="pillar-head">
+      <div class="pillar-icon">💳</div>
+      <div class="pillar-meta">
+        <div class="pillar-weight">35% of your score — biggest factor</div>
+        <div class="pillar-title">Payment History</div>
+        <div class="pillar-desc">Every payment you make — or miss — gets recorded. One late payment can drop your score 50–100 points and stays on your report for 7 years.</div>
+      </div>
+      <div class="recovery-badge">
+        <div class="pts">+100</div>
+        <div class="pts-label">pts potential</div>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-col do">
+        <div class="col-head do">✓ Do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Pay on time, every single time</span><span class="action-recovery">+50–100 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Set up autopay for at least the minimum</span><span class="action-recovery">+30–60 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Pay full statement balance monthly</span><span class="action-recovery">+20–40 pts</span></div>
+      </div>
+      <div class="pillar-col dont">
+        <div class="col-head dont">✕ Never do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Miss a payment even once</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Pay after the 30-day mark — bureaus report it</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Ignore a bill assuming it won't matter</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UTILIZATION -->
+  <div class="pillar">
+    <div class="pillar-head">
+      <div class="pillar-icon">📊</div>
+      <div class="pillar-meta">
+        <div class="pillar-weight">30% of your score — most actionable</div>
+        <div class="pillar-title">Credit Utilization</div>
+        <div class="pillar-desc">How much of your available <strong style="color:#e8edf5">revolving</strong> credit you're using — credit cards only. Installment loans (car, student, personal) are calculated separately and have far less impact on this factor. The bureau snapshots your card balance on the statement closing date — not the due date.</div>
+      </div>
+      <div class="recovery-badge">
+        <div class="pts">+80</div>
+        <div class="pts-label">pts potential</div>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-col do">
+        <div class="col-head do">✓ Do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Stay under 10% for maximum score</span><span class="action-recovery">+40–80 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Pay before closing date, not due date</span><span class="action-recovery">+20–50 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Request credit limit increases</span><span class="action-recovery">+10–30 pts</span></div>
+      </div>
+      <div class="pillar-col dont">
+        <div class="col-head dont">✕ Never do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Max out any card — this alone can cost you 40+ pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Use more than 30% consistently</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Close old cards — kills your available limit</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LENGTH OF HISTORY -->
+  <div class="pillar">
+    <div class="pillar-head">
+      <div class="pillar-icon">🕐</div>
+      <div class="pillar-meta">
+        <div class="pillar-weight">15% of your score — patience pays</div>
+        <div class="pillar-title">Length of Credit History</div>
+        <div class="pillar-desc">The average age of all your accounts. Older accounts equal more trust. Closing old ones removes their age from the equation entirely.</div>
+      </div>
+      <div class="recovery-badge">
+        <div class="pts">+40</div>
+        <div class="pts-label">pts potential</div>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-col do">
+        <div class="col-head do">✓ Do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Keep old accounts open and occasionally active</span><span class="action-recovery">+15–40 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Start building credit as early as possible</span><span class="action-recovery">+10–25 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Use old cards lightly to prevent auto-closure</span><span class="action-recovery">+5–15 pts</span></div>
+      </div>
+      <div class="pillar-col dont">
+        <div class="col-head dont">✕ Never do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Close your oldest card — it anchors your age</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Open many new cards at once — lowers average age</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Let old cards go inactive for 12+ months</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREDIT MIX -->
+  <div class="pillar">
+    <div class="pillar-head">
+      <div class="pillar-icon">🗂️</div>
+      <div class="pillar-meta">
+        <div class="pillar-weight">10% of your score — quality over quantity</div>
+        <div class="pillar-title">Credit Mix</div>
+        <div class="pillar-desc">Having different types of credit — cards, auto loans, mortgages — shows lenders you can handle varied debt responsibly.</div>
+      </div>
+      <div class="recovery-badge">
+        <div class="pts">+20</div>
+        <div class="pts-label">pts potential</div>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-col do">
+        <div class="col-head do">✓ Do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Mix credit cards with an installment loan</span><span class="action-recovery">+10–20 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>A car loan or student loan adds diversity naturally</span><span class="action-recovery">+5–15 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Let mix grow over time — no need to rush it</span></div>
+      </div>
+      <div class="pillar-col dont">
+        <div class="col-head dont">✕ Never do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Open accounts just for mix — not worth the inquiry</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Take on debt you don't need solely for this reason</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HARD INQUIRIES -->
+  <div class="pillar">
+    <div class="pillar-head">
+      <div class="pillar-icon">🔍</div>
+      <div class="pillar-meta">
+        <div class="pillar-weight">10% of your score — easy to mismanage</div>
+        <div class="pillar-title">New Credit — Hard Inquiries</div>
+        <div class="pillar-desc">Every time you apply for credit, a hard inquiry is recorded. Each one costs a few points and stays on your report for 2 years.</div>
+      </div>
+      <div class="recovery-badge">
+        <div class="pts">+25</div>
+        <div class="pts-label">pts potential</div>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-col do">
+        <div class="col-head do">✓ Do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Space applications 6–12 months apart</span><span class="action-recovery">+5–10 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Use pre-qualification soft pull tools first</span><span class="action-recovery">+5–15 pts</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Rate shopping for mortgage/auto in 14-day window counts as one</span><span class="action-recovery">+5–25 pts</span></div>
+      </div>
+      <div class="pillar-col dont">
+        <div class="col-head dont">✕ Never do this</div>
+        <div class="action-item"><div class="action-dot"></div><span>Apply for multiple cards in the same month</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Apply right before a major loan application</span></div>
+        <div class="action-item"><div class="action-dot"></div><span>Let retailers talk you into store cards impulsively</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ REPAIR TIMELINE TAB ═══ -->
+<div class="tab-content section" id="tab-repair">
+
+  <!-- LATE PAYMENT -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">⏰</div>
+      <div class="damage-meta">
+        <div class="damage-title">Late Payment (30+ days)</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−50–100</div>
+        <div class="badge-label">pts day 1</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Month 1–6</div>
+        <div class="phase-text"><strong>Biggest damage</strong> — score drops 50–100 pts immediately. Most lenders now see you as higher risk.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 1–2</div>
+        <div class="phase-text">Impact fades slightly as you build positive history on top. Consistent on-time payments start layering over the damage.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 3–6</div>
+        <div class="phase-text">Continues fading — barely noticeable by year 4–5 if no new issues added. Score may fully recover during this period.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Automatically removed</strong> from report completely ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-amber">
+      <span class="tip-icon">💡</span>
+      <span>Call your issuer and request a <strong>goodwill removal</strong> if it was your first offense. Many issuers will remove it from your report — it works more often than people think. Recovery: <strong>+50–100 pts</strong> if removed.</span>
+    </div>
+  </div>
+
+  <!-- MISSED PAYMENT 90-180 DAYS -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">💥</div>
+      <div class="damage-meta">
+        <div class="damage-title">Missed Payment (90–180 days)</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−100–150</div>
+        <div class="badge-label">pts immediately</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Immediately</div>
+        <div class="phase-text"><strong>Score drops 100–150 pts.</strong> Account may be sent to collections — a separate additional negative mark.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">6 Months</div>
+        <div class="phase-text">Lender may <strong>charge off</strong> the account — written off as a loss. This creates a second separate derogatory mark.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 2–4</div>
+        <div class="phase-text">Impact softens significantly with consistent positive behavior layering on top going forward.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-red">
+      <span class="tip-icon">💡</span>
+      <span>Pay the debt even after charge-off. Unpaid collections can block mortgage and car loan approvals even years later. Negotiating <strong>pay-for-delete</strong> can recover +30–100 pts.</span>
+    </div>
+  </div>
+
+  <!-- HARD INQUIRY -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🔍</div>
+      <div class="damage-meta">
+        <div class="damage-title">Hard Inquiry (Credit Application)</div>
+        <div class="damage-subtitle stays-amber">Stays on report 2 years</div>
+      </div>
+      <div class="damage-badge badge-amber">
+        <div class="badge-num">−3–10</div>
+        <div class="badge-label">pts per inquiry</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-amber" style="width:20%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>2 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Day 1</div>
+        <div class="phase-text"><strong>Drops score 3–10 pts</strong> per inquiry. Multiple in the same month signals financial stress to lenders.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Month 6–12</div>
+        <div class="phase-text">Impact largely stops affecting your score even though it's still visible on the report.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 2</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-green">
+      <span class="tip-icon">💡</span>
+      <span>The lightest negative mark on this list. Least to worry about — just don't stack 5+ in the same month. Rate shopping for a mortgage or auto loan within a <strong>14-day window counts as one single inquiry</strong>.</span>
+    </div>
+  </div>
+
+  <!-- COLLECTION ACCOUNT -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🏦</div>
+      <div class="damage-meta">
+        <div class="damage-title">Collection Account</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−100+</div>
+        <div class="badge-label">pts when added</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Added</div>
+        <div class="phase-text"><strong>One of the worst marks</strong> — drops score 100+ pts. Signals to lenders you defaulted on a debt entirely.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">After paying</div>
+        <div class="phase-text">Shows as <strong>"paid collection"</strong> — still on the report but less damaging. Some scoring models ignore paid collections entirely.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 3–5</div>
+        <div class="phase-text">Impact fades significantly if your overall history is clean and positive accounts are building on top.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-amber">
+      <span class="tip-icon">💡</span>
+      <span>Negotiate a <strong>"pay-for-delete"</strong> deal — offer to pay the balance in exchange for complete removal from your report. Not all collectors agree, but it is always worth asking. Recovery if deleted: <strong>+30–100 pts</strong>.</span>
+    </div>
+  </div>
+
+  <!-- BANKRUPTCY -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">⚖️</div>
+      <div class="damage-meta">
+        <div class="damage-title">Bankruptcy (Chapter 7)</div>
+        <div class="damage-subtitle stays-red">Stays on report 10 years</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−130–240</div>
+        <div class="badge-label">pts when filed</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:100%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Filed</div>
+        <div class="phase-text"><strong>Score can drop 130–240 pts.</strong> The most severe credit event possible — nearly everything resets.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 1–2</div>
+        <div class="phase-text">Start rebuilding <strong>immediately</strong> with a secured card — no waiting. Every on-time payment starts layering positive history.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 3–5</div>
+        <div class="phase-text">Consistent behavior can bring you back to the <strong>650–680 range</strong>. Many people hit 700+ within 4–5 years of filing.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 10</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-amber">
+      <span class="tip-icon">💡</span>
+      <span><strong>Chapter 13</strong> (repayment plan) only stays 7 years vs Chapter 7's 10. Recovery is fully possible — many people reach 700+ within 4–5 years. Get a secured card the week you file and start the clock immediately.</span>
+    </div>
+  </div>
+
+  <!-- HIGH UTILIZATION -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">📉</div>
+      <div class="damage-meta">
+        <div class="damage-title">High Utilization (30%+)</div>
+        <div class="damage-subtitle stays-green">Fixes in as little as 1 month</div>
+      </div>
+      <div class="damage-badge badge-green">
+        <div class="badge-num">+40–80</div>
+        <div class="badge-label">pts recoverable</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-green" style="width:10%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>1 Month</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Reported</div>
+        <div class="phase-text"><strong>High utilization suppresses your score</strong> every single cycle it is reported. The higher you go, the more it costs you.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Next cycle</div>
+        <div class="phase-text">Pay it down <strong>before the statement closes</strong> — not the due date — and your score bounces back immediately next cycle. No waiting, no lasting mark.</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-green">
+      <span class="tip-icon">💡</span>
+      <span>The <strong>only major credit factor with zero memory</strong>. Unlike late payments, high utilization leaves no permanent mark. Fix it today, score improves next month. This is always your fastest lever to pull.</span>
+    </div>
+  </div>
+
+  <!-- FORECLOSURE -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🏠</div>
+      <div class="damage-meta">
+        <div class="damage-title">Foreclosure</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−85–160</div>
+        <div class="badge-label">pts when filed</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Filed</div>
+        <div class="phase-text"><strong>Score drops 85–160 pts.</strong> Usually comes with multiple missed mortgage payments already on the report compounding the damage.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 2–4</div>
+        <div class="phase-text">Impact softens as new positive history layers on top. Consistent payments across all other accounts make a significant difference.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-amber">
+      <span class="tip-icon">💡</span>
+      <span>You can qualify for an <strong>FHA mortgage again in just 3 years</strong> after a foreclosure — even while it is still on your report — if you have rebuilt a clean payment history in the meantime.</span>
+    </div>
+  </div>
+
+  <!-- LOW ACCOUNT AGE -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🕐</div>
+      <div class="damage-meta">
+        <div class="damage-title">Low Average Account Age</div>
+        <div class="damage-subtitle stays-amber">Heals with time only — no shortcuts</div>
+      </div>
+      <div class="damage-badge badge-amber">
+        <div class="badge-num">+40</div>
+        <div class="badge-label">pts over time</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-amber" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>0–2 yrs avg</span><span>7+ yrs avg</span><span>15 yrs avg</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">0–2 yr avg</div>
+        <div class="phase-text"><strong>Young credit profile</strong> — lenders see you as unproven. Score is suppressed even if all other factors are perfect.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">3–5 yr avg</div>
+        <div class="phase-text">Moderate history — score improving steadily. Most credit cards and products now accessible at competitive rates.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">7+ yr avg</div>
+        <div class="phase-text"><strong>Strong history</strong> — full benefit realized. Best rates and highest approval odds available to you.</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-amber">
+      <span class="tip-icon">💡</span>
+      <span>No shortcut here. The only move is to <strong>stop opening new accounts</strong> and let the clock run. Every new card you open resets the average age down. Keep your oldest card open always — it is the anchor of your entire credit age.</span>
+    </div>
+    </div>
+
+  <!-- DEROGATORY MARKS EXPLAINER -->
+  <div class="damage-card" style="border-color: rgba(139,92,246,0.3);">
+    <div class="damage-head" style="background: rgba(139,92,246,0.06);">
+      <div class="damage-icon">📋</div>
+      <div class="damage-meta">
+        <div class="damage-title" style="color:#a78bfa;">Derogatory Marks — What Credit Karma Is Showing You</div>
+        <div class="damage-subtitle" style="color:#8b5cf6;">Grouped label, not a separate FICO factor</div>
+      </div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:#8b5cf6"></div><div class="phase-line"></div></div>
+        <div class="phase-time">What it is</div>
+        <div class="phase-text">Credit Karma groups all serious negative marks under <strong>"Derogatory Marks"</strong> — it is their consumer-friendly label, not a separate FICO category.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:#8b5cf6"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Where it hits</div>
+        <div class="phase-text">Almost all derogatory marks damage <strong>Payment History (35%)</strong> — the missed payments, defaults, charge-offs. That is where most of the score drop lives.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:#8b5cf6"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Loans vs cards</div>
+        <div class="phase-text">Installment loans (car, student, personal) <strong>do not affect utilization</strong> the way credit cards do. FICO calculates revolving utilization separately. Loan balances matter much less to your Amounts Owed score than card balances.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:#8b5cf6"></div></div>
+        <div class="phase-time">Double hit</div>
+        <div class="phase-text">Marks like charge-offs can hit <strong>twice</strong> — once under Payment History (stopped paying) and once under Amounts Owed (balance still showing). That is why they drop scores harder than a simple late payment.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARGE-OFF -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🗑️</div>
+      <div class="damage-meta">
+        <div class="damage-title">Charge-Off</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years · Hits Payment History (35%) + Amounts Owed (30%)</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−100–150</div>
+        <div class="badge-label">pts when added</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">After 180 days</div>
+        <div class="phase-text"><strong>Lender writes the debt off as a loss.</strong> This is a separate derogatory mark on top of all the missed payments that caused it. Drops score 100–150 pts and the balance still shows as owed.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Sold to collector</div>
+        <div class="phase-text">Lender may sell the debt to a collection agency — creating a <strong>third derogatory mark</strong> (the collection account) on the same original debt. Three marks, one original debt.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 2–5</div>
+        <div class="phase-text">Impact softens with consistent positive behavior. Paying it reduces the Amounts Owed damage even if it stays on report.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-red">
+      <span class="tip-icon">💡</span>
+      <span>Even after a charge-off, pay the debt. It changes the status from "unpaid charge-off" to "paid charge-off" — still on the report, but lenders view it much more favorably. Try negotiating a <strong>pay-for-delete</strong> first. Recovery if deleted: <strong>+80–150 pts</strong>.</span>
+    </div>
+  </div>
+
+  <!-- DEBT SETTLEMENT -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🤝</div>
+      <div class="damage-meta">
+        <div class="damage-title">Debt Settlement</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years · Hits Payment History (35%)</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−45–125</div>
+        <div class="badge-label">pts when settled</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Settled</div>
+        <div class="phase-text">Account is marked <strong>"settled"</strong> — not "paid in full." This tells lenders you paid less than you owed, which is a red flag. Score drops 45–125 pts depending on your current profile.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 1–3</div>
+        <div class="phase-text">Impact fades as you build positive payment history on top. The "settled" status stays but its weight in your score diminishes over time.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-amber">
+      <span class="tip-icon">💡</span>
+      <span>Before agreeing to settle, always negotiate to have the account marked <strong>"paid in full"</strong> instead of "settled." Some creditors agree — and paid in full causes far less damage than settled. Get any agreement in writing before you pay.</span>
+    </div>
+  </div>
+
+  <!-- REPOSSESSION -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🚗</div>
+      <div class="damage-meta">
+        <div class="damage-title">Repossession</div>
+        <div class="damage-subtitle stays-red">Stays on report 7 years · Hits Payment History (35%)</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−100–150</div>
+        <div class="badge-label">pts when filed</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Repossessed</div>
+        <div class="phase-text"><strong>Vehicle taken back after missed payments.</strong> Comes with multiple missed payment marks already on the report plus the repossession itself — multiple hits simultaneously.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Deficiency</div>
+        <div class="phase-text">If the car sells for less than what you owed, the remaining balance (deficiency) can be sent to collections — creating <strong>yet another separate mark</strong> on your report.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 2–5</div>
+        <div class="phase-text">Impact fades significantly with consistent positive behavior. Some lenders will work with you on a new auto loan after 2–3 years of clean history.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-red">
+      <span class="tip-icon">💡</span>
+      <span>If you are behind on a car loan, call the lender <strong>before</strong> they repossess. Many will offer a deferment or modified payment plan — a temporary arrangement that avoids the repossession mark entirely. Once they take the car, your options shrink dramatically.</span>
+    </div>
+  </div>
+
+  <!-- STUDENT LOAN DEFAULT -->
+  <div class="damage-card">
+    <div class="damage-head">
+      <div class="damage-icon">🎓</div>
+      <div class="damage-meta">
+        <div class="damage-title">Student Loan Default</div>
+        <div class="damage-subtitle stays-red">Stays 7 years · Hits Payment History (35%) — but can be rehabilitated</div>
+      </div>
+      <div class="damage-badge badge-red">
+        <div class="badge-num">−50–150</div>
+        <div class="badge-label">pts at default</div>
+      </div>
+    </div>
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar-track">
+        <div class="timeline-bar-fill fill-red" style="width:70%"></div>
+      </div>
+      <div class="timeline-bar-labels"><span>Today</span><span>7 Years</span><span>10 Years</span></div>
+    </div>
+    <div class="damage-phases">
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--red)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">270+ days late</div>
+        <div class="phase-text"><strong>Federal student loan enters default</strong> after 270 days of non-payment. Score drops 50–150 pts. Government can garnish wages and tax refunds without a court order.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Rehabilitation</div>
+        <div class="phase-text">Make <strong>9 on-time payments in 10 months</strong> — the default is removed from your credit report entirely. This is unique to federal student loans. No other derogatory mark can be erased this way.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--amber)"></div><div class="phase-line"></div></div>
+        <div class="phase-time">Year 2–5</div>
+        <div class="phase-text">Without rehabilitation, impact fades as positive history layers on top — but the late payment marks that led to default remain separately.</div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-dot-col"><div class="phase-dot" style="background:var(--green)"></div></div>
+        <div class="phase-time">Year 7</div>
+        <div class="phase-text"><strong>Removed from report completely</strong> ✓ (or sooner via rehabilitation)</div>
+      </div>
+    </div>
+    <div class="damage-tip tip-green">
+      <span class="tip-icon">💡</span>
+      <span>Student loan rehabilitation is the <strong>only derogatory mark that can be legally removed before 7 years</strong> without disputing an error. If you have a defaulted federal loan, contact your loan servicer immediately and start the 9-payment rehabilitation program. Recovery after removal: <strong>+50–150 pts</strong>.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ PRO HACKS TAB ═══ -->
+<div class="tab-content section" id="tab-hacks">
+  <div class="hacks-grid">
+
+    <div class="hack-card">
+      <div class="hack-num">1</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-timing">Timing</span>
+        <div class="hack-title">Pay before your closing date, not your due date</div>
+        <div class="hack-desc">The bureau takes a snapshot on your statement closing date. Pay 3–5 days before it closes and the bureau sees almost nothing. Your score reflects low utilization immediately next cycle.</div>
+        <div class="hack-impact">⬆ +20–50 pts within one billing cycle</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">2</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-util">Utilization</span>
+        <div class="hack-title">Ask for a credit limit increase every 6 months</div>
+        <div class="hack-desc">If your limit goes from $5,000 to $10,000 and your spending stays the same, your utilization just got cut in half overnight. Most issuers grant this automatically with good payment history.</div>
+        <div class="hack-impact">⬆ +10–40 pts depending on current utilization</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">3</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-history">History</span>
+        <div class="hack-title">Never close your oldest card — ever</div>
+        <div class="hack-desc">That card is the anchor of your credit age. Even if you never use it, keep it open with a small recurring charge on autopay. Its age is silently boosting your score every single month.</div>
+        <div class="hack-impact">⬆ Prevents a –15 to –40 pt drop from closing it</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">4</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-util">Utilization</span>
+        <div class="hack-title">Become an authorized user on an old card</div>
+        <div class="hack-desc">If someone you trust has a 10-year-old card with low utilization and perfect history, being added as an authorized user puts that entire history on your report. You don't even need to use the card.</div>
+        <div class="hack-impact">⬆ +20–80 pts depending on card's age and history</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">5</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-inquiries">Inquiries</span>
+        <div class="hack-title">Pre-qualify before you apply anywhere</div>
+        <div class="hack-desc">Almost every major issuer offers a pre-qualification tool using a soft pull — zero impact on your score. Only do the real application once you know you're likely approved. Rejections still leave hard inquiries.</div>
+        <div class="hack-impact">⬆ Saves 5–10 pts per avoided hard inquiry</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">6</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-disputes">Disputes</span>
+        <div class="hack-title">Pull your free report and dispute every error</div>
+        <div class="hack-desc">1 in 5 credit reports has an error. Pull yours free at annualcreditreport.com and look for wrong balances, accounts you don't recognize, or late payments marked incorrectly. Winning a dispute can jump your score fast.</div>
+        <div class="hack-impact">⬆ +20–100 pts if an error is successfully disputed</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">7</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-payments">Payments</span>
+        <div class="hack-title">Pay twice a month if you spend heavily</div>
+        <div class="hack-desc">High spenders can look like high utilizers even if they pay in full. Solution: make a mid-cycle payment before closing date, then pay the rest on due date. Low balance reported, zero interest paid.</div>
+        <div class="hack-impact">⬆ +15–40 pts by lowering reported utilization</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">8</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-protection">Protection</span>
+        <div class="hack-title">Freeze your credit when you're not applying</div>
+        <div class="hack-desc">A credit freeze blocks anyone from opening new accounts in your name — free at all three bureaus. Doesn't affect your score at all. Unfreeze only when you need to apply. Best protection against identity theft.</div>
+        <div class="hack-impact">⬆ Prevents –50 to –150 pts from fraudulent accounts</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">9</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-recovery">Recovery</span>
+        <div class="hack-title">Call your issuer after a first-time late payment</div>
+        <div class="hack-desc">If you've had a spotless history and miss a payment once, call the issuer and ask for a goodwill removal. Many will remove it from your report if it's your first offense. It works more often than people think.</div>
+        <div class="hack-impact">⬆ +50–100 pts if the late payment is removed</div>
+      </div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">10</div>
+      <div class="hack-content">
+        <span class="hack-tag tag-momentum">Momentum</span>
+        <div class="hack-title">Monitor monthly — what you track, you improve</div>
+        <div class="hack-desc">Use a free tool like Credit Karma, Experian, or your bank's built-in monitor. Watching your score monthly keeps you aware of what's moving it. Errors and fraud get caught early. You can't fix what you don't see.</div>
+        <div class="hack-impact">⬆ Ongoing — catch issues before they cost 50+ pts</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ SIMULATOR TAB ═══ -->
+<div class="tab-content section" id="tab-sim">
+
+  <div class="sim-card">
+    <div class="sim-score-display">
+      <div class="sim-score-num" id="simScore">750</div>
+      <div class="sim-score-label" id="simLabel">Very Good</div>
+      <div class="sim-score-desc" id="simDesc">Strong score. Keep utilization low and payments on time to push toward exceptional.</div>
+    </div>
+    <div class="sim-breakdown">
+      <div class="sim-factor">
+        <div class="sim-factor-icon">💳</div>
+        <div class="sim-factor-pts" id="f1">+280</div>
+        <div class="sim-factor-name">Payment History</div>
+      </div>
+      <div class="sim-factor">
+        <div class="sim-factor-icon">📊</div>
+        <div class="sim-factor-pts" id="f2">+200</div>
+        <div class="sim-factor-name">Utilization</div>
+      </div>
+      <div class="sim-factor">
+        <div class="sim-factor-icon">🕐</div>
+        <div class="sim-factor-pts" id="f3">+120</div>
+        <div class="sim-factor-name">History Age</div>
+      </div>
+      <div class="sim-factor">
+        <div class="sim-factor-icon">🗂️</div>
+        <div class="sim-factor-pts" id="f4">+80</div>
+        <div class="sim-factor-name">Credit Mix</div>
+      </div>
+      <div class="sim-factor">
+        <div class="sim-factor-icon">🔍</div>
+        <div class="sim-factor-pts" id="f5">+70</div>
+        <div class="sim-factor-name">Inquiries</div>
+      </div>
+    </div>
+    <div class="sim-sliders">
+
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-name">💳 On-time payment rate</span>
+          <span class="slider-value" id="v1">95%</span>
+        </div>
+        <input type="range" id="s1" min="0" max="100" value="95" oninput="updateSim()">
+        <div class="slider-recovery" id="r1"></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-name">📊 Credit utilization</span>
+          <span class="slider-value" id="v2">18%</span>
+        </div>
+        <input type="range" id="s2" min="0" max="100" value="18" oninput="updateSim()">
+        <div class="slider-recovery" id="r2"></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-name">🕐 Average account age</span>
+          <span class="slider-value" id="v3">4 yrs</span>
+        </div>
+        <input type="range" id="s3" min="0" max="15" value="4" oninput="updateSim()">
+        <div class="slider-recovery" id="r3"></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-name">🗂️ Credit mix (types)</span>
+          <span class="slider-value" id="v4">2 types</span>
+        </div>
+        <input type="range" id="s4" min="1" max="4" value="2" oninput="updateSim()">
+        <div class="slider-recovery" id="r4"></div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-name">🔍 Hard inquiries (last 2 yrs)</span>
+          <span class="slider-value" id="v5">2</span>
+        </div>
+        <input type="range" id="s5" min="0" max="10" value="2" oninput="updateSim()">
+        <div class="slider-recovery" id="r5"></div>
+      </div>
+
+      <div class="sim-tip" id="simTip">
+        <strong>Tip:</strong> Your utilization is your most actionable lever. Pay your balance before the statement closing date — not the due date — and watch your score jump within one cycle.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RECOVERY TABLE -->
+  <div class="recovery-section">
+    <div class="recovery-title">⬆ Points You Can Recover — and How Fast</div>
+    <div class="recovery-row">
+      <div class="recovery-action">Lower utilization from 80% → under 10% by paying down or increasing limit</div>
+      <div class="recovery-time">1–2 months</div>
+      <div class="recovery-pts-badge">+40–80 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Fix missed payments by calling issuer for a goodwill removal (first offense)</div>
+      <div class="recovery-time">1–3 months</div>
+      <div class="recovery-pts-badge">+50–100 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Dispute and successfully remove an error from your credit report</div>
+      <div class="recovery-time">30–45 days</div>
+      <div class="recovery-pts-badge">+20–100 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Become an authorized user on someone's old card with perfect history</div>
+      <div class="recovery-time">1–2 months</div>
+      <div class="recovery-pts-badge">+20–80 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Stop all new credit applications and let hard inquiries age off (2 years)</div>
+      <div class="recovery-time">6–24 months</div>
+      <div class="recovery-pts-badge">+5–25 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Pay all accounts on time for 12 consecutive months after a late payment</div>
+      <div class="recovery-time">12 months</div>
+      <div class="recovery-pts-badge">+40–75 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Negotiate a pay-for-delete agreement on a collection account</div>
+      <div class="recovery-time">1–3 months</div>
+      <div class="recovery-pts-badge">+30–100 pts</div>
+    </div>
+    <div class="recovery-row">
+      <div class="recovery-action">Open first credit card or credit builder loan (starting from no score)</div>
+      <div class="recovery-time">3–6 months</div>
+      <div class="recovery-pts-badge">+50–100 pts</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  For educational purposes only · Point estimates are based on FICO weighting models and real-world case studies · Individual results vary based on full credit profile · Not financial advice
+</div>
+
+<script>
+// ── TABS
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── GAUGE
+function updateGauge(score) {
+  const min = 300, max = 850;
+  const norm = Math.max(0, Math.min(1, (score - min) / (max - min)));
+  const totalDash = 283;
+  const offset = totalDash * (1 - norm);
+  const track = document.getElementById('gaugeTrack');
+  track.style.strokeDashoffset = offset;
+
+  const col = score >= 800 ? '#10b981' : score >= 740 ? '#22c55e' : score >= 670 ? '#3b82f6' : score >= 580 ? '#f59e0b' : '#ef4444';
+  track.style.stroke = col;
+
+  const numEl = document.getElementById('gaugeNum');
+  const labelEl = document.getElementById('gaugeLabel');
+  const label = score >= 800 ? 'Exceptional' : score >= 740 ? 'Very Good' : score >= 670 ? 'Good' : score >= 580 ? 'Fair' : 'Poor';
+
+  animNum(numEl, parseInt(numEl.textContent) || score, score, 500);
+  numEl.style.color = col;
+  labelEl.textContent = label;
+  labelEl.style.color = col;
+}
+
+function animNum(el, from, to, ms) {
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - start) / ms);
+    const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+    el.textContent = Math.round(from + (to - from) * ease);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ── SIMULATOR
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+function getSliderBg(val, min, max, goodLow) {
+  const pct = (val - min) / (max - min) * 100;
+  const filled = goodLow ? (100 - pct) : pct;
+  const col = goodLow
+    ? (val <= 10 ? '#10b981' : val <= 30 ? '#3b82f6' : val <= 60 ? '#f59e0b' : '#ef4444')
+    : (val >= 95 ? '#10b981' : val >= 80 ? '#3b82f6' : val >= 60 ? '#f59e0b' : '#ef4444');
+  return `linear-gradient(to right, ${col} ${pct}%, rgba(255,255,255,0.08) ${pct}%)`;
+}
+
+function updateSim() {
+  const pay   = parseInt(document.getElementById('s1').value); // 0-100
+  const util  = parseInt(document.getElementById('s2').value); // 0-100
+  const age   = parseInt(document.getElementById('s3').value); // 0-15
+  const mix   = parseInt(document.getElementById('s4').value); // 1-4
+  const inq   = parseInt(document.getElementById('s5').value); // 0-10
+
+  // Labels
+  document.getElementById('v1').textContent = pay + '%';
+  document.getElementById('v2').textContent = util + '%';
+  document.getElementById('v3').textContent = age + ' yr' + (age !== 1 ? 's' : '');
+  document.getElementById('v4').textContent = mix + ' type' + (mix !== 1 ? 's' : '');
+  document.getElementById('v5').textContent = inq;
+
+  // Slider backgrounds
+  document.getElementById('s1').style.background = getSliderBg(pay, 0, 100, false);
+  document.getElementById('s2').style.background = getSliderBg(util, 0, 100, true);
+  document.getElementById('s3').style.background = getSliderBg(age, 0, 15, false);
+  document.getElementById('s4').style.background = getSliderBg(mix, 1, 4, false);
+  document.getElementById('s5').style.background = getSliderBg(inq, 0, 10, true);
+
+  // Factor scores
+  const f1 = Math.round((pay / 100) * 280);
+  const f2 = Math.round(((100 - util) / 100) * 240);
+  const f3 = Math.round((age / 15) * 120);
+  const f4 = Math.round(((mix - 1) / 3) * 80);
+  const f5 = Math.round(((10 - inq) / 10) * 80);
+  const total = clamp(300 + f1 + f2 + f3 + f4 + f5, 300, 850);
+
+  document.getElementById('f1').textContent = '+' + f1;
+  document.getElementById('f2').textContent = '+' + f2;
+  document.getElementById('f3').textContent = '+' + f3;
+  document.getElementById('f4').textContent = '+' + f4;
+  document.getElementById('f5').textContent = '+' + f5;
+
+  // Score display
+  const scoreEl = document.getElementById('simScore');
+  const prevScore = parseInt(scoreEl.textContent) || total;
+  animNum(scoreEl, prevScore, total, 400);
+
+  const label = total >= 800 ? 'Exceptional 🏆' : total >= 740 ? 'Very Good' : total >= 670 ? 'Good' : total >= 580 ? 'Fair' : 'Poor';
+  const col = total >= 800 ? '#10b981' : total >= 740 ? '#22c55e' : total >= 670 ? '#3b82f6' : total >= 580 ? '#f59e0b' : '#ef4444';
+  document.getElementById('simLabel').textContent = label;
+  scoreEl.style.color = col;
+  document.getElementById('simLabel').style.color = col;
+
+  const descs = {
+    exceptional: "You're in exceptional shape. Keep paying your full statement balance before each closing date.",
+    veryGood: "Strong score — you qualify for most products. Stay consistent and push toward 800+.",
+    good: "Solid foundation. Lower your utilization and keep payments perfect to break into the top tier.",
+    fair: "Room to grow. Tackle your biggest weak point first — usually payment history or high utilization.",
+    poor: "Focus on one thing: never miss another payment. Time and consistency will rebuild this."
+  };
+  const descKey = total >= 800 ? 'exceptional' : total >= 740 ? 'veryGood' : total >= 670 ? 'good' : total >= 580 ? 'fair' : 'poor';
+  document.getElementById('simDesc').textContent = descs[descKey];
+
+  // Update gauge
+  updateGauge(total);
+
+  // Recovery hints
+  const r1 = pay < 100 ? `⬆ Reach 100% on-time → recover up to +${Math.round((1 - pay/100)*280)} pts` : '✓ Perfect payment history';
+  const r2 = util > 10 ? `⬆ Lower to under 10% → recover up to +${Math.round(((util-10)/100)*240)} pts` : '✓ Utilization is optimal';
+  const r3 = age < 7 ? `⬆ Each year of age adds ~${Math.round(120/15)} pts — keep old accounts open` : '✓ Strong account age';
+  const r4 = mix < 4 ? `⬆ Add another credit type → recover up to +${Math.round(((4-mix)/3)*80)} pts` : '✓ Excellent credit mix';
+  const r5 = inq > 0 ? `⬆ No new applications for 2 yrs → recover up to +${Math.round((inq/10)*80)} pts` : '✓ No hard inquiries — perfect';
+
+  document.getElementById('r1').textContent = r1;
+  document.getElementById('r2').textContent = r2;
+  document.getElementById('r3').textContent = r3;
+  document.getElementById('r4').textContent = r4;
+  document.getElementById('r5').textContent = r5;
+
+  // Tip
+  const tips = [];
+  if (util > 30) tips.push(`<strong>Priority:</strong> Your utilization (${util}%) is the fastest thing you can fix. Pay down your balance before the statement closing date — not the due date.`);
+  else if (pay < 95) tips.push(`<strong>Priority:</strong> Payment history is 35% of your score. Set up autopay today — even for the minimum — and never miss another payment.`);
+  else if (inq > 3) tips.push(`<strong>Priority:</strong> ${inq} hard inquiries is signaling financial stress to lenders. Stop applying for new credit for at least 6 months.`);
+  else if (age < 3) tips.push(`<strong>Tip:</strong> Your account age is young. The best thing you can do is nothing — time builds this factor automatically. Never close your oldest card.`);
+  else tips.push(`<strong>Tip:</strong> You're in great shape. Focus on keeping utilization under 10% and paying your full balance before each statement closing date.`);
+
+  document.getElementById('simTip').innerHTML = tips[0];
+}
+
+// ── PIE CHART
+(function() {
+  const factors = [
+    { pct: 35, label: 'Payment History',    sub: 'Biggest factor',      color: '#3b82f6', icon: '💳' },
+    { pct: 30, label: 'Credit Utilization', sub: 'Most actionable',     color: '#10b981', icon: '📊' },
+    { pct: 15, label: 'Account Age',        sub: 'Patience pays',       color: '#8b5cf6', icon: '🕐' },
+    { pct: 10, label: 'Credit Mix',         sub: 'Quality over quantity',color: '#f59e0b', icon: '🗂️' },
+    { pct: 10, label: 'New Inquiries',      sub: 'Easy to mismanage',   color: '#ef4444', icon: '🔍' },
+  ];
+
+  const cx = 100, cy = 100, r = 80, rInner = 54;
+  const gap = 2.2; // degrees gap between slices
+  const svg = document.getElementById('pieSvg');
+  const legend = document.getElementById('pieLegend');
+  let activeIdx = -1;
+
+  function toRad(deg) { return deg * Math.PI / 180; }
+
+  function slicePath(startDeg, endDeg, outer, inner) {
+    const s1 = { x: cx + outer * Math.cos(toRad(startDeg)), y: cy + outer * Math.sin(toRad(startDeg)) };
+    const e1 = { x: cx + outer * Math.cos(toRad(endDeg)),   y: cy + outer * Math.sin(toRad(endDeg)) };
+    const s2 = { x: cx + inner * Math.cos(toRad(endDeg)),   y: cy + inner * Math.sin(toRad(endDeg)) };
+    const e2 = { x: cx + inner * Math.cos(toRad(startDeg)), y: cy + inner * Math.sin(toRad(startDeg)) };
+    const large = (endDeg - startDeg) > 180 ? 1 : 0;
+    return [
+      `M ${s1.x} ${s1.y}`,
+      `A ${outer} ${outer} 0 ${large} 1 ${e1.x} ${e1.y}`,
+      `L ${s2.x} ${s2.y}`,
+      `A ${inner} ${inner} 0 ${large} 0 ${e2.x} ${e2.y}`,
+      'Z'
+    ].join(' ');
+  }
+
+  function setHoverText(idx) {
+    const pctEl = document.getElementById('pieHoverPct');
+    const nameEl = document.getElementById('pieHoverName');
+    if (idx === -1) {
+      pctEl.textContent = '5 Factors';
+      pctEl.setAttribute('font-size', '11');
+      nameEl.textContent = 'tap a slice';
+    } else {
+      const f = factors[idx];
+      pctEl.textContent = f.pct + '%';
+      pctEl.setAttribute('font-size', '18');
+      pctEl.setAttribute('fill', f.color);
+      nameEl.textContent = f.label;
+    }
+  }
+
+  function setActive(idx) {
+    activeIdx = idx;
+    document.querySelectorAll('.pie-slice').forEach((el, i) => {
+      el.classList.toggle('active', i === idx);
+      el.setAttribute('opacity', idx === -1 || i === idx ? '1' : '0.45');
+    });
+    document.querySelectorAll('.legend-item').forEach((el, i) => {
+      el.classList.toggle('active', i === idx);
+    });
+    setHoverText(idx);
+  }
+
+  // Build slices
+  let current = -90; // start at top
+  const paths = [];
+
+  factors.forEach((f, i) => {
+    const sweep = (f.pct / 100) * 360;
+    const start = current + gap / 2;
+    const end = current + sweep - gap / 2;
+    current += sweep;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', slicePath(start, end, r, rInner));
+    path.setAttribute('fill', f.color);
+    path.setAttribute('opacity', '1');
+    path.classList.add('pie-slice');
+    path.addEventListener('mouseenter', () => setActive(i));
+    path.addEventListener('mouseleave', () => setActive(-1));
+    path.addEventListener('click', () => setActive(activeIdx === i ? -1 : i));
+    path.addEventListener('touchstart', (e) => { e.preventDefault(); setActive(activeIdx === i ? -1 : i); });
+    svg.insertBefore(path, svg.querySelector('circle'));
+    paths.push(path);
+
+    // Legend item
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `
+      <div class="legend-swatch" style="background:${f.color}"></div>
+      <div class="legend-text">
+        <div class="legend-name">${f.icon} ${f.label}</div>
+        <div class="legend-sub">${f.sub}</div>
+      </div>
+      <div class="legend-pct" style="color:${f.color}">${f.pct}%</div>
+    `;
+    item.addEventListener('mouseenter', () => setActive(i));
+    item.addEventListener('mouseleave', () => setActive(-1));
+    item.addEventListener('click', () => setActive(activeIdx === i ? -1 : i));
+    legend.appendChild(item);
+  });
+
+  // Animate slices in on load
+  paths.forEach((p, i) => {
+    p.style.opacity = '0';
+    p.style.transition = 'none';
+    setTimeout(() => {
+      p.style.transition = 'opacity 0.4s ease, filter 0.2s';
+      p.style.opacity = '1';
+    }, 120 + i * 90);
+  });
+})();
+
+// ── INIT
+updateSim();
+updateGauge(750);
+</script>
+</body>
+</html>
